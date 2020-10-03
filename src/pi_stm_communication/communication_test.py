@@ -15,9 +15,6 @@ def read_write_to_serial_loop():
     ser = serial.Serial(serial_port[0], serial_port[1], timeout=None)
     time.sleep(1)
 
-    # Sends first message (See arduino_communication_test.ino)
-    ser.write('q'.encode('utf-8'))
-    time.sleep(DELAY)
     counter = 32
 
     while True:
