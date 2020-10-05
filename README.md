@@ -14,3 +14,6 @@ Repo for the software running on the Raspberry Pi 4 for the quadcopter
  - With the environment active, in the root directory run `python src/pi_stm_communication/communication_test.py`
  - Or without activating the environment `pipenv run python src/pi_stm_communication/communication_test.py`
  - If testing without a serial device comment out `import serial` and uncomment `import fake_serial as serial`
+ 
+ ## Note
+ Serial port on Raspberry Pi 3B+ is `/dev/ttyACM0`
