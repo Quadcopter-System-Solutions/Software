@@ -1,7 +1,0 @@
-{
-  "name": "controller",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "vue"
-}
