@@ -29,7 +29,7 @@ Repo for the software running on the Raspberry Pi 4 for the quadcopter
  1. Run `python communication_server.py` in `src`
 
  ### Note
- Currently looking into multithreading ZMQ and Serial
+ - Still need to build logic between serial and STM
 
 ---
 

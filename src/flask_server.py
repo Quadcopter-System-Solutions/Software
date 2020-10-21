@@ -17,6 +17,11 @@ def hello_world():
     """ Hello World """
     return 'Hello, World!'
 
+@app.route('/zmq/reconnect')
+def reconnect_zmq():
+    """ If Flask server is put up first or loses connection, use this to reconnect """
+    socket.connect("tcp://localhost:5555")
+    return 'Reconnected', 200
 
 @app.route('/zmq/test')
 def test_zmq():
