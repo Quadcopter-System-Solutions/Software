@@ -21,11 +21,11 @@ class MultiThread():
         """ Creates a test thread for quick creations of threads """
         return self.create_thread(
             function=test_function,
-            name='time',
+            name='test',
             parameters={
                 'delay': 1,
-                'counter': 3,
-                'thread_id': 'thread' + str(self.count)
+                'counter': 100,
+                'thread_id': f'thread{self.count}'
             }
         )
 
@@ -36,7 +36,6 @@ class MultiThread():
                 return thread
 
         return None
-
 
 
 class SingleThread(threading.Thread):

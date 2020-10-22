@@ -10,7 +10,6 @@ pyserial = "*"
 pylint = "*"
 flask = "*"
 flask-cors = "*"
-zmq = "*"
 
 [requires]
 python_version = "3.8"
