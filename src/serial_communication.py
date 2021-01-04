@@ -27,3 +27,11 @@ class SerialCommunication():
 
             if counter > 255:
                 counter = 32
+
+
+if __name__ == "__main__":
+	# On Alex's Macbook '/dev/cu.usbmodem142101'
+	# On Pi '/dev/serial0'
+    serial_port = ['/dev/serial0', 9600]
+    serial_communication = SerialCommunication(serial_port)
+    serial_communication.start_serial()
