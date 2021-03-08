@@ -10,6 +10,8 @@ pyserial = "*"
 pylint = "*"
 flask = "*"
 flask-cors = "*"
+aiohttp = "*"
+python-socketio = "*"
 
 [requires]
 python_version = "3.8"
