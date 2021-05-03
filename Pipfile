@@ -4,14 +4,19 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+black = "*"
 
 [packages]
 pyserial = "*"
 pylint = "*"
-flask = "*"
-flask-cors = "*"
-aiohttp = "*"
 python-socketio = "*"
+black = "*"
+numpy = "*"
+opencv-python = "*"
+aiohttp = "*"
 
 [requires]
 python_version = "3.8"
+
+[pipenv]
+allow_prereleases = true

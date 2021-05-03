@@ -1,30 +1,43 @@
-from aiohttp import web
+import base64
+import asyncio
 import socketio
+from aiohttp import web
+from cv2 import cv2
 
-sio = socketio.AsyncServer(logger=True, engineio_logger=True)
-app = web.Application()
-sio.attach(app)
 
-async def index(request):
-    """Serve the client-side application."""
-    with open('index.html') as f:
-        return web.Response(text=f.read(), content_type='text/html')
+async def start_socket_server(fps: int = 60):
+    sio = socketio.AsyncServer()
+    app = web.Application()
+    sio.attach(app)
 
-@sio.event
-def connect(sid, environ):
-    print("connect ", sid)
+    cap = cv2.VideoCapture(0)
 
-@sio.event
-async def message(sid, data):
-    print("message", data)
-    await sio.emit("message", "pong")
+    @sio.event
+    async def connect(sid, environ):
+        print("Connect: ", sid)
 
-@sio.event
-def disconnect(sid):
-    print('disconnect ', sid)
+    @sio.event
+    def disconnect(sid):
+        print("Disconnect: ", sid)
 
-app.router.add_static('/static', 'static')
-app.router.add_get('/', index)
+    async def loop():
+        while True:
+            ret, frame = cap.read()  # get frame from webcam
+            res, frame = cv2.imencode(".jpg", frame)  # from image to binary buffer
+            data = base64.b64encode(frame)  # convert to base64 format
+            await sio.emit("image", data)
 
-if __name__ == '__main__':
-    web.run_app(app)
+            await asyncio.sleep(1 / fps)
+
+    runner = web.AppRunner(app)
+    await runner.setup()
+    site = web.TCPSite(runner)
+
+    task1 = asyncio.create_task(loop())
+    task2 = asyncio.create_task(site.start())
+
+    await asyncio.gather(*[task1, task2])
+
+
+if __name__ == "__main__":
+    asyncio.run(start_socket_server())
