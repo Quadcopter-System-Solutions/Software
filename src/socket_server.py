@@ -24,14 +24,14 @@ async def start_socket_server(fps: int = 60):
         while True:
             ret, frame = cap.read()  # get frame from webcam
             res, frame = cv2.imencode(".jpg", frame)  # from image to binary buffer
-            data = base64.b64encode(frame)  # convert to base64 format
-            await sio.emit("image", data)
+            data = base64.b64encode(frame)
+            await sio.emit("image", data.decode('ascii'))
 
             await asyncio.sleep(1 / fps)
 
     runner = web.AppRunner(app)
     await runner.setup()
-    site = web.TCPSite(runner)
+    site = web.TCPSite(runner, '0.0.0.0', '8080')
 
     task1 = asyncio.create_task(loop())
     task2 = asyncio.create_task(site.start())
